@@ -22,11 +22,13 @@ import com.google.android.gms.maps.SupportMapFragment
 
 import android.support.v4.app.ActivityCompat
 import android.support.v4.app.ActivityCompat.requestPermissions
+import android.view.View
 import android.widget.Toast
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.model.*
 import com.google.android.gms.tasks.Task
+import kotlinx.android.synthetic.main.fragment_score.*
 
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback, ScoreFragment.OnFragmentInteractionListener {
@@ -45,6 +47,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, ScoreFragment.OnFr
     private lateinit var locationRequest: LocationRequest
     private var locationUpdateState = false
     private lateinit var listaPuntos: ArrayList<LatLng>
+    private var routing : Boolean = false
+    private var finished : Boolean = false
 
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
@@ -61,9 +65,22 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, ScoreFragment.OnFr
 
         setupPermissions()
 
-        var model : DataViewModel = ViewModelProviders.of(this).get(DataViewModel::class.java)
-        model.setOnRoute(false)
-        model.setFinishRoute(false)
+        buttonBegin.setOnClickListener({v ->
+            routing = true
+            finished = false
+            buttonBegin.visibility = View.GONE
+            buttonFinish.visibility = View.VISIBLE
+        })
+
+        buttonFinish.setOnClickListener({v ->
+            routing = false
+            finished = true
+            buttonBegin.visibility = View.VISIBLE
+            buttonFinish.visibility = View.GONE
+        })
+
+
+
 
         listaPuntos = ArrayList<LatLng>()
 
@@ -75,15 +92,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, ScoreFragment.OnFr
                 Toast.makeText(applicationContext, "Estamos", Toast.LENGTH_SHORT).show()//                placeMarkerOnMap(LatLng(lastLocation.latitude, lastLocation.longitude))
                 Toast.makeText(baseContext, "Estamos", Toast.LENGTH_SHORT).show()//                placeMarkerOnMap(LatLng(lastLocation.latitude, lastLocation.longitude))
 
-                if (model.getOnRoute()) {
+                if (routing) {
                     listaPuntos.add(LatLng(mLastKnownLocation.latitude, mLastKnownLocation.longitude))
                     drawRouteOnMap()
                 }
 
-                if (model.getFinishRoute()) {
-                    model.setOnRoute(false)
-                    model.setFinishRoute(false)
-
+                if (finished) {
                     // TODO: Aqui enviamos la mierda
                     var distancia : Double = calculeTotalDistance()
 

@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import kotlinx.android.synthetic.main.fragment_score.*
 
 
 /**
@@ -24,8 +25,7 @@ class ScoreFragment : Fragment() {
     private var mParam1: String? = null
     private var mParam2: String? = null
     //private val pollas by lazy { arguments.getsTRINGF}
-    private var model : DataViewModel = ViewModelProviders.of(activity).get(DataViewModel::class.java)
-
+    //private var model : DataViewModel = ViewModelProviders.of(activity).get(DataViewModel::class.java)
     private var mListener: OnFragmentInteractionListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,17 +35,7 @@ class ScoreFragment : Fragment() {
             mParam2 = arguments.getString(ARG_PARAM2)
         }
 
-    }
 
-    // TODO: Cambiar los valores de los botones y las funciones asociadas a ellos
-
-    private fun beginRoute() {
-        model.setOnRoute(true)
-
-    }
-
-    private fun finishRoute() {
-        model.setFinishRoute(true)
     }
 
 
