@@ -96,10 +96,9 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
 
     private fun handleSignInResult(result: GoogleSignInResult?) {
         if (result?.isSuccess!!) {
-            updateUI(true);
+            updateUI(true)
+            var id = result.signInAccount!!.id
         }
-
-        var id = result.signInAccount!!.getId()
 
        // TODO: Enviar las cosas que necesitemos
     }
