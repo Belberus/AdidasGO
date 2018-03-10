@@ -98,6 +98,9 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
         if (result?.isSuccess!!) {
             updateUI(true)
             var id = result.signInAccount!!.id
+
+            Log.d("IdDario",id.toString())
+            APiHandler.isRegistered(id.toString())
         }
 
        // TODO: Enviar las cosas que necesitemos
