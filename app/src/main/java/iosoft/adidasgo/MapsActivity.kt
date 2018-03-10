@@ -49,6 +49,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, ScoreFragment.OnFr
     private lateinit var listaPuntos: ArrayList<LatLng>
     private var routing : Boolean = false
     private var finished : Boolean = false
+    private var startTime : Long = 0
+    private var stopTime : Long = 0
 
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
@@ -66,6 +68,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, ScoreFragment.OnFr
         setupPermissions()
 
         buttonBegin.setOnClickListener({v ->
+            startTime = System.currentTimeMillis()
             routing = true
             finished = false
             buttonBegin.visibility = View.GONE
@@ -75,12 +78,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, ScoreFragment.OnFr
         buttonFinish.setOnClickListener({v ->
             routing = false
             finished = true
+            stopTime = System.currentTimeMillis()
             buttonBegin.visibility = View.VISIBLE
             buttonFinish.visibility = View.GONE
         })
-
-
-
 
         listaPuntos = ArrayList<LatLng>()
 
@@ -99,6 +100,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, ScoreFragment.OnFr
 
                 if (finished) {
                     // TODO: Aqui enviamos la mierda
+                    var timeTotal : Long = stopTime - startTime / 1000
                     var distancia : Double = calculeTotalDistance()
 
 
@@ -112,27 +114,29 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, ScoreFragment.OnFr
     }
 
     private fun calculeTotalDistance(): Double {
-        var totalDistancia : Double = 0.0
-        var lastLatitude : Double = listaPuntos[0].latitude
-        var lastLongitude : Double = listaPuntos[0].longitude
-        var actualLatitude : Double
-        var actualLongitude : Double
+        if (listaPuntos.size != 0) {
+            var totalDistancia : Double = 0.0
+            var lastLatitude : Double = listaPuntos[0].latitude
+            var lastLongitude : Double = listaPuntos[0].longitude
+            var actualLatitude : Double
+            var actualLongitude : Double
 
-        for (i in 1.. listaPuntos.size) {
-            actualLatitude = listaPuntos[i].latitude
-            actualLongitude = listaPuntos[i].longitude
-            val theta = lastLongitude - actualLongitude
-            totalDistancia += Math.sin(deg2rad(lastLatitude)) * Math.sin(deg2rad(actualLatitude)) + (Math.cos(deg2rad(lastLatitude))
-                    * Math.cos(deg2rad(actualLatitude))
-                    * Math.cos(deg2rad(theta)))
-            lastLatitude = actualLatitude
-            lastLongitude = actualLongitude
-        }
+            for (i in 1.. listaPuntos.size) {
+                actualLatitude = listaPuntos[i].latitude
+                actualLongitude = listaPuntos[i].longitude
+                val theta = lastLongitude - actualLongitude
+                totalDistancia += Math.sin(deg2rad(lastLatitude)) * Math.sin(deg2rad(actualLatitude)) + (Math.cos(deg2rad(lastLatitude))
+                        * Math.cos(deg2rad(actualLatitude))
+                        * Math.cos(deg2rad(theta)))
+                lastLatitude = actualLatitude
+                lastLongitude = actualLongitude
+            }
 
-        totalDistancia = Math.acos(totalDistancia)
-        totalDistancia = rad2deg(totalDistancia)
-        totalDistancia = totalDistancia * 60.0 * 1.1515
-        return totalDistancia
+            totalDistancia = Math.acos(totalDistancia)
+            totalDistancia = rad2deg(totalDistancia)
+            totalDistancia = totalDistancia * 60.0 * 1.1515
+            return totalDistancia
+        } else return 0.0
     }
 
     private fun deg2rad(deg: Double): Double {
