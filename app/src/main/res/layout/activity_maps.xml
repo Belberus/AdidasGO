@@ -1,0 +1,33 @@
+<com.sothree.slidinguppanel.SlidingUpPanelLayout android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:gravity="top"
+    xmlns:sothree="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    sothree:umanoPanelHeight="100dp"
+    sothree:umanoShadowHeight="4dp">
+
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:map="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="iosoft.adidasgo.MapsActivity" />
+
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:map="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/infoScore"
+        android:name="iosoft.adidasgo.ScoreFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="iosoft.adidasgo.MapsActivity" />
+
+
+</com.sothree.slidinguppanel.SlidingUpPanelLayout>
+
+
+
+
+
