@@ -1,0 +1,61 @@
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/allblacks2" />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:alpha="0.4"
+        android:src="@android:color/background_dark" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="iosoft.adidasgo.SelectTeamActivity$PowerFragment"
+        android:weightSum="6"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleX="0.5"
+            android:scaleY="0.5"
+            android:tint="@android:color/white"
+            android:tintMode="add"
+            android:adjustViewBounds="true"
+            android:layout_weight="4"
+            android:alpha="0.9"
+            android:src="@drawable/power" />
+
+        <TextView
+            android:id="@+id/section_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:textColor="@android:color/background_light"
+            android:layout_weight="1"
+            android:text="If you're always ready to give the 100%, Power is your choice."/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/Theme.AppCompat.Light"
+            android:background="@android:color/transparent"
+            android:text="Join Power"
+            android:layout_weight="1"
+            android:textColor="@android:color/background_light"
+            android:layout_gravity="bottom"
+            />
+
+
+
+    </LinearLayout>
+</FrameLayout>
