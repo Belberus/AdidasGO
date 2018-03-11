@@ -4,27 +4,256 @@
     android:layout_height="match_parent"
     tools:context="iosoft.adidasgo.ScoreFragment">
 
-    <LinearLayout
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:src="#212121"/>
+
+    <LinearLayout
+        android:id="@+id/linear_layout_scroll"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="20">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_weight="1"
+            android:background="#000000"
+            android:src="@drawable/adidas" />
+
+        <LinearLayout
+            android:id="@+id/perfilLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_weight="2"
+            android:orientation="horizontal"
+            android:weightSum="4">
+
+            <LinearLayout
+                android:id="@+id/nombreYteam"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_weight="2"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/userName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Fulgencio García Escolano"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
+                    android:textColor="@android:color/background_light" />
+
+                <TextView
+                    android:id="@+id/userTeam"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Team Potato"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
+                    android:textColor="@android:color/background_light"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_weight="2"
+                android:adjustViewBounds="true"
+                android:src="@drawable/placeholder" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/recommendations"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_weight="11"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:weightSum="10">
+
+                <ImageButton
+                    android:id="@+id/personRecommendationButton"
+                    style="@android:style/Widget.Holo.Light.ImageButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="2dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="9"
+                    android:adjustViewBounds="true"
+                    android:background="@android:color/transparent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/runner2" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:labelFor="@+id/personRecommendationButton"
+                    android:text="People near me"
+                    android:textColor="@android:color/background_light" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:weightSum="10">
+
+                <ImageButton
+                    android:id="@+id/productRecommendationButton"
+                    style="@android:style/Widget.Holo.Light.ImageButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="2dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="9"
+                    android:adjustViewBounds="true"
+                    android:background="@android:color/transparent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/zapas2" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:labelFor="@+id/productRecommendationButton"
+                    android:text="Products for me"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/background_light" />
+            </LinearLayout>
+        </LinearLayout>
 
         <Button
             android:id="@+id/buttonBegin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginBottom="5dp"
             android:text="Begin route" />
 
         <Button
             android:id="@+id/buttonFinish"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:text="Finish route" />
+            android:layout_weight="1"
+            android:layout_marginBottom="5dp"
+            android:text="Finish route"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/teamScores"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_weight="3"
+            android:weightSum="3"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/teamTechniqueScore"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_weight="1"
+                android:weightSum="4">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"
+                    android:cropToPadding="false"
+                    android:src="@drawable/technique" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="3"
+                    android:textAlignment="center"
+                    android:text="129310 pts"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
+                    android:textColor="@android:color/background_light" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/teamControlScore"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_weight="1"
+                android:weightSum="4">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"
+                    android:cropToPadding="false"
+                    android:src="@drawable/control" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="3"
+                    android:textAlignment="center"
+                    android:text="331113 pts"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
+                    android:textColor="@android:color/background_light" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/teamPowerScore"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_weight="1"
+                android:weightSum="4">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"
+                    android:cropToPadding="false"
+                    android:scaleX="1.2"
+                    android:scaleY="1.2"
+                    android:src="@drawable/power" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:textAlignment="center"
+                    android:layout_weight="3"
+                    android:text="441113 pts"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
+                    android:textColor="@android:color/background_light" />
+            </LinearLayout>
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
             android:gravity="center|bottom"
             android:orientation="vertical">
 
@@ -32,19 +261,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:layout_gravity="center|bottom"
-                android:background="?android:attr/listDivider"/>
+                android:background="?android:attr/listDivider" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center|bottom"
+                android:layout_gravity="center_vertical"
                 android:background="?android:attr/listDivider"
-                android:textColor="@android:color/darker_gray"
+                android:text="@string/swipe_down"
                 android:textAlignment="center"
-                android:text="@string/swipe_down" />
-
-
-
+                android:textColor="@android:color/darker_gray" />
         </LinearLayout>
 
 
