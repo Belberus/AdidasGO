@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.ListView
 import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_person_recommendation.*
 import kotlinx.android.synthetic.main.content_product_recommendation.*
@@ -18,7 +19,7 @@ class PersonRecommendationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_person_recommendation)
         setSupportActionBar(toolbar)
-        listViewPersons.adapter = ListExampleAdapter(this)
+        //listViewPersons.adapter = ListExampleAdapter(this)
         link.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
@@ -59,7 +60,7 @@ class PersonRecommendationActivity : AppCompatActivity() {
     }
 
     class ListRowHolder(row: View?) {
-        val label: TextView = row?.findViewById(R.id.label) as TextView
+        val label: TextView = row?.findViewById<TextView>(R.id.label) as TextView
 
     }
 }
