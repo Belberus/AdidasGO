@@ -1,9 +1,7 @@
 package iosoft.adidasgo
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.app.Activity
-import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.content.IntentSender
 import android.content.pm.PackageManager
@@ -52,6 +50,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, ScoreFragment.OnFr
     private var startTime : Long = 0
     private var stopTime : Long = 0
 
+    private var userTeam : String? = null
+
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
         private const val REQUEST_CHECK_SETTINGS = 2
@@ -64,6 +64,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, ScoreFragment.OnFr
         val mapFragment = supportFragmentManager
                 .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+
+        userTeam = savedInstanceState?.getString("team")
 
         setupPermissions()
 
@@ -104,7 +106,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, ScoreFragment.OnFr
                     var distancia : Double = calculeTotalDistance()
 
 
-                    // TODO: Limpiamos los puntos una vez enviados los datos
+                    // Limpiamos los puntos una vez enviados los datos
+                    listaPuntos.clear()
                 }
 
             }
@@ -245,6 +248,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, ScoreFragment.OnFr
 
     //@SuppressLint("MissingPermission")
     private fun updateLocationUI() {
+        getLocationPermission()
         if (mMap == null) {
             return;
         }
@@ -254,10 +258,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, ScoreFragment.OnFr
                 mMap.getUiSettings().setMyLocationButtonEnabled(true)
 
             } else {
-                mMap.setMyLocationEnabled(false)
-                mMap.getUiSettings().setMyLocationButtonEnabled(false)
-                getLocationPermission()
-
+                finish()
             }
         } catch(e: SecurityException){}
     }

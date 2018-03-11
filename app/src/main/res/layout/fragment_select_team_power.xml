@@ -29,8 +29,6 @@
             android:layout_height="wrap_content"
             android:scaleX="0.5"
             android:scaleY="0.5"
-            android:tint="@android:color/white"
-            android:tintMode="add"
             android:adjustViewBounds="true"
             android:layout_weight="4"
             android:alpha="0.9"
@@ -45,6 +43,7 @@
             android:layout_weight="1"
             android:text="If you're always ready to give the 100%, Power is your choice."/>
         <Button
+            android:id="@+id/joinTeamPowerButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:theme="@style/Theme.AppCompat.Light"
@@ -53,6 +52,7 @@
             android:layout_weight="1"
             android:textColor="@android:color/background_light"
             android:layout_gravity="bottom"
+            android:onClick="joinPowerTeam"
             />
 
 

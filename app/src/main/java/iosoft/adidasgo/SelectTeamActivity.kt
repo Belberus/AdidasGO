@@ -1,21 +1,26 @@
 package iosoft.adidasgo
 
-import android.support.v7.app.AppCompatActivity
-
+import android.content.Intent
+import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
-import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-
+import com.github.kittinunf.fuel.httpPost
+import com.github.kittinunf.result.Result
 import kotlinx.android.synthetic.main.activity_select_team.*
-import kotlinx.android.synthetic.main.fragment_select_team_initial.view.*
+import org.json.*;
 
 class SelectTeamActivity : AppCompatActivity() {
+
+    private lateinit var familyName : String
+    private lateinit var id : String
+    private lateinit var displayName : String
+    private lateinit var email : String
+    private lateinit var urlPhoto : String
 
     /**
      * The [android.support.v4.view.PagerAdapter] that will provide
@@ -30,37 +35,106 @@ class SelectTeamActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_select_team)
-
-        setSupportActionBar(toolbar)
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = SectionsPagerAdapter(supportFragmentManager)
 
+        familyName = intent.getStringExtra("familyName")!!
+        id = intent.getStringExtra("id")
+        displayName = intent.getStringExtra("displayName")
+        email = intent.getStringExtra("email")
+        urlPhoto = intent.getStringExtra("urlPhoto")
+
         // Set up the ViewPager with the sections adapter.
         container.adapter = mSectionsPagerAdapter
-
     }
 
+    fun joinTechniqueTeam (v: View) {
+        var json : JSONObject = JSONObject()
+        json.put("name", displayName)
+        json.put("email", email)
+        json.put("displayName", displayName)
+        json.put("familyName", familyName)
+        json.put("idGoogle", id)
+        json.put("token", "")
+        json.put("team", 1)
+        json.put("urlPhoto", urlPhoto)
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.menu_select_team, menu)
-        return true
+        ("http://" + ApiHandler.IP + ":" + ApiHandler.Port + "/signIn")
+                .httpPost().body(json.toString())
+                .responseString { request, response, result ->
+                    var zero : Long = 0
+                    when (result) {
+                        is Result.Failure -> {
+                            //Pafuera
+                        }
+                        is Result.Success -> {
+                            //Padentro
+                            val mapsactivity = Intent(this, MapsActivity::class.java)
+                            mapsactivity.putExtra("team", "technique")
+                            startActivity(mapsactivity)
+                        }
+                    }
+                }
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        val id = item.itemId
+    fun joinControlTeam (v: View) {
+        var json : JSONObject = JSONObject()
+        json.put("name", displayName)
+        json.put("email", email)
+        json.put("displayName", displayName)
+        json.put("familyName", familyName)
+        json.put("idGoogle", id)
+        json.put("token", "")
+        json.put("team", 2)
+        json.put("urlPhoto", urlPhoto)
 
-        if (id == R.id.action_settings) {
-            return true
-        }
-
-        return super.onOptionsItemSelected(item)
+        ("http://" + ApiHandler.IP + ":" + ApiHandler.Port + "/signIn").
+                httpPost().body(json.toString())
+                .responseString { request, response, result ->
+                    var zero : Long = 0
+                    when (result) {
+                        is Result.Failure -> {
+                            //Pafuera
+                        }
+                        is Result.Success -> {
+                            //Padentro
+                            val mapsactivity = Intent(this, MapsActivity::class.java)
+                            mapsactivity.putExtra("team", "technique")
+                            startActivity(mapsactivity)
+                        }
+                    }
+                }
     }
 
+    fun joinPowerTeam (v: View) {
+        var json : JSONObject = JSONObject()
+        json.put("name", displayName)
+        json.put("email", email)
+        json.put("displayName", displayName)
+        json.put("familyName", familyName)
+        json.put("idGoogle", id)
+        json.put("token", "")
+        json.put("team", 3)
+        json.put("urlPhoto", urlPhoto)
+
+        ("http://" + ApiHandler.IP + ":" + ApiHandler.Port + "/signIn").
+                httpPost().body(json.toString())
+                .responseString { request, response, result ->
+                    var zero : Long = 0
+                    when (result) {
+                        is Result.Failure -> {
+                            //Pafuera
+                        }
+                        is Result.Success -> {
+                            //Padentro
+                            val mapsactivity = Intent(this, MapsActivity::class.java)
+                            mapsactivity.putExtra("team", "technique")
+                            startActivity(mapsactivity)
+                        }
+                    }
+                }
+    }
 
     /**
      * A [FragmentPagerAdapter] that returns a fragment corresponding to
@@ -71,18 +145,17 @@ class SelectTeamActivity : AppCompatActivity() {
         override fun getItem(position: Int): Fragment {
             // getItem is called to instantiate the fragment for the given page.
             when(position) {
-                0 -> return InitialFragment.newInstance(position + 1)
-                1 -> return TechniqueFragment.newInstance(position + 1)
-                2 -> return ControlFragment.newInstance(position + 1)
-                3 -> return PowerFragment.newInstance(position + 1)
-                else -> return InitialFragment.newInstance(position + 1)
+                0 -> return InitialFragment.newInstance(position)
+                1 -> return TechniqueFragment.newInstance(position)
+                2 -> return ControlFragment.newInstance(position)
+                3 -> return PowerFragment.newInstance(position)
+                else -> return InitialFragment.newInstance(position)
             }
 
         }
 
         override fun getCount(): Int {
-            // Show 3 total pages.
-            return 3
+            return 4
         }
     }
 
@@ -91,7 +164,7 @@ class SelectTeamActivity : AppCompatActivity() {
         override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                                   savedInstanceState: Bundle?): View? {
             val rootView = inflater.inflate(R.layout.fragment_select_team_initial, container, false)
-            rootView.section_label.text = getString(R.string.section_format, arguments!!.getInt(ARG_SECTION_NUMBER))
+
             return rootView
         }
 
@@ -106,8 +179,8 @@ class SelectTeamActivity : AppCompatActivity() {
              * Returns a new instance of this fragment for the given section
              * number.
              */
-            fun newInstance(sectionNumber: Int): TechniqueFragment {
-                val fragment = TechniqueFragment()
+            fun newInstance(sectionNumber: Int): InitialFragment {
+                val fragment = InitialFragment()
                 val args = Bundle()
                 args.putInt(ARG_SECTION_NUMBER, sectionNumber)
                 fragment.arguments = args
@@ -116,12 +189,12 @@ class SelectTeamActivity : AppCompatActivity() {
         }
     }
 
+
     class TechniqueFragment : Fragment() {
 
         override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                                   savedInstanceState: Bundle?): View? {
             val rootView = inflater.inflate(R.layout.fragment_select_team_technique, container, false)
-            rootView.section_label.text = getString(R.string.section_format, arguments!!.getInt(ARG_SECTION_NUMBER))
             return rootView
         }
 
@@ -151,7 +224,6 @@ class SelectTeamActivity : AppCompatActivity() {
         override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                                   savedInstanceState: Bundle?): View? {
             val rootView = inflater.inflate(R.layout.fragment_select_team_control, container, false)
-            rootView.section_label.text = getString(R.string.section_format, arguments!!.getInt(ARG_SECTION_NUMBER))
             return rootView
         }
 
@@ -181,7 +253,6 @@ class SelectTeamActivity : AppCompatActivity() {
         override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                                   savedInstanceState: Bundle?): View? {
             val rootView = inflater.inflate(R.layout.fragment_select_team_power, container, false)
-            rootView.section_label.text = getString(R.string.section_format, arguments!!.getInt(ARG_SECTION_NUMBER))
             return rootView
         }
 
