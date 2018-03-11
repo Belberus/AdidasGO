@@ -49,6 +49,14 @@
         <activity
             android:name=".SelectTeamActivity"
             android:label="@string/title_activity_select_team"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".ProductRecommendationActivity"
+            android:label="@string/title_activity_product_recommendation"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".PersonRecommendationActivity"
+            android:label="@string/title_activity_person_recommendation"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
     </application>
 

@@ -67,6 +67,16 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, ScoreFragment.OnFr
 
         userTeam = savedInstanceState?.getString("team")
 
+        personRecommendationButton.setOnClickListener({
+            val personRecommendationActivity = Intent(this, PersonRecommendationActivity::class.java)
+            startActivity(personRecommendationActivity)
+        })
+
+        productRecommendationButton.setOnClickListener({
+            val productRecommendationActivity = Intent(this, ProductRecommendationActivity::class.java)
+            startActivity(productRecommendationActivity)
+        })
+
         setupPermissions()
 
         buttonBegin.setOnClickListener({v ->
