@@ -67,15 +67,15 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, ScoreFragment.OnFr
 
         userTeam = savedInstanceState?.getString("team")
 
-        personRecommendationButton.setOnClickListener({
-            val personRecommendationActivity = Intent(this, PersonRecommendationActivity::class.java)
-            startActivity(personRecommendationActivity)
-        })
+//        personRecommendationButton.setOnClickListener({
+//            val personRecommendationActivity = Intent(this, PersonRecommendationActivity::class.java)
+//            startActivity(personRecommendationActivity)
+//        })
 
-        productRecommendationButton.setOnClickListener({
-            val productRecommendationActivity = Intent(this, ProductRecommendationActivity::class.java)
-            startActivity(productRecommendationActivity)
-        })
+//        productRecommendationButton.setOnClickListener({
+//            val productRecommendationActivity = Intent(this, ProductRecommendationActivity::class.java)
+//            startActivity(productRecommendationActivity)
+//        })
 
         setupPermissions()
 
@@ -126,6 +126,15 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, ScoreFragment.OnFr
         createLocationRequest()
     }
 
+    fun goToPersonRecommendation(v: View) {
+        val personRecommendationActivity = Intent(this, PersonRecommendationActivity::class.java)
+        startActivity(personRecommendationActivity)
+    }
+
+    fun goToProductRecommendation(v: View) {
+        val productRecommendationActivity = Intent(this, ProductRecommendationActivity::class.java)
+        startActivity(productRecommendationActivity)
+    }
     private fun calculeTotalDistance(): Double {
         if (listaPuntos.size != 0) {
             var totalDistancia : Double = 0.0

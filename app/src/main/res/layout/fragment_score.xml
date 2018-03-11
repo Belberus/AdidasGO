@@ -106,6 +106,7 @@
                     android:adjustViewBounds="true"
                     android:background="@android:color/transparent"
                     android:scaleType="centerCrop"
+                    android:onClick="goToPersonRecommendation"
                     android:src="@drawable/runner2" />
                 <TextView
                     android:layout_width="wrap_content"
@@ -135,6 +136,7 @@
                     android:adjustViewBounds="true"
                     android:background="@android:color/transparent"
                     android:scaleType="centerCrop"
+                    android:onClick="goToProductRecommendation"
                     android:src="@drawable/zapas2" />
 
                 <TextView
