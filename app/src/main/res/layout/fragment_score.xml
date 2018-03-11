@@ -39,7 +39,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:layout_weight="2"
+                android:layout_weight="4"
                 android:orientation="vertical">
 
                 <TextView
@@ -58,13 +58,24 @@
                     android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
                     android:textColor="@android:color/background_light"
                     android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/userTeamImage"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center_vertical"
+                    android:adjustViewBounds="true"
+                    android:cropToPadding="false"
+                    android:scaleX="1.2"
+                    android:scaleY="1.5"
+                    android:src="@drawable/power" />
             </LinearLayout>
 
             <ImageView
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_weight="2"
                 android:adjustViewBounds="true"
+                android:cropToPadding="false"
                 android:src="@drawable/placeholder" />
         </LinearLayout>
 
@@ -160,23 +171,23 @@
             android:id="@+id/teamScores"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:layout_weight="3"
-            android:weightSum="3"
-            android:orientation="vertical">
+            android:layout_weight="4"
+            android:orientation="vertical"
+            android:weightSum="3">
 
             <LinearLayout
                 android:id="@+id/teamTechniqueScore"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_weight="1"
+                android:orientation="horizontal"
                 android:weightSum="4">
 
                 <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:layout_weight="1"
+                    android:layout_gravity="center_vertical"
                     android:adjustViewBounds="true"
                     android:cropToPadding="false"
                     android:src="@drawable/technique" />
@@ -186,8 +197,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="3"
-                    android:textAlignment="center"
                     android:text="129310 pts"
+                    android:textAlignment="center"
                     android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
                     android:textColor="@android:color/background_light" />
             </LinearLayout>
@@ -196,14 +207,15 @@
                 android:id="@+id/teamControlScore"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_weight="1"
+                android:orientation="horizontal"
                 android:weightSum="4">
 
                 <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:layout_weight="1"
+                    android:layout_gravity="center_vertical"
                     android:adjustViewBounds="true"
                     android:cropToPadding="false"
                     android:src="@drawable/control" />
@@ -213,8 +225,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="3"
-                    android:textAlignment="center"
                     android:text="331113 pts"
+                    android:textAlignment="center"
                     android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
                     android:textColor="@android:color/background_light" />
             </LinearLayout>
@@ -223,27 +235,28 @@
                 android:id="@+id/teamPowerScore"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_weight="1"
+                android:orientation="horizontal"
                 android:weightSum="4">
 
                 <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
                     android:cropToPadding="false"
+                    android:layout_gravity="center_vertical"
                     android:scaleX="1.2"
-                    android:scaleY="1.2"
+                    android:scaleY="1.5"
                     android:src="@drawable/power" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:textAlignment="center"
                     android:layout_weight="3"
                     android:text="441113 pts"
+                    android:textAlignment="center"
                     android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
                     android:textColor="@android:color/background_light" />
             </LinearLayout>
@@ -252,15 +265,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
+            android:layout_weight="1"
             android:gravity="center|bottom"
             android:orientation="vertical">
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_gravity="center|bottom"
-                android:background="?android:attr/listDivider" />
 
             <TextView
                 android:layout_width="match_parent"
