@@ -3,7 +3,7 @@
     android:gravity="top"
     xmlns:sothree="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    sothree:umanoPanelHeight="100dp"
+    sothree:umanoPanelHeight="180dp"
     sothree:umanoShadowHeight="4dp">
 
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"

@@ -116,7 +116,6 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
 
     private fun callbackResponse(request: Request, response: Response, result: Result<Json, FuelError>) {
         //do something with response
-        var zero : Long = 0
         when (result) {
             is Result.Failure -> {
                 updateUI(false)

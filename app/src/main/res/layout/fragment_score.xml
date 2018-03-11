@@ -43,7 +43,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/userName"
+                    android:id="@+id/userNameItem"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Fulgencio García Escolano"
@@ -51,7 +51,7 @@
                     android:textColor="@android:color/background_light" />
 
                 <TextView
-                    android:id="@+id/userTeam"
+                    android:id="@+id/userTeamItem"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Team Potato"
@@ -72,6 +72,7 @@
             </LinearLayout>
 
             <ImageView
+                android:id="@+id/userPhotoItem"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:adjustViewBounds="true"

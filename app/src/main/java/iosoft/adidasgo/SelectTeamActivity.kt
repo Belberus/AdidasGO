@@ -71,7 +71,12 @@ class SelectTeamActivity : AppCompatActivity() {
                         is Result.Success -> {
                             //Padentro
                             val mapsactivity = Intent(this, MapsActivity::class.java)
-                            mapsactivity.putExtra("team", "technique")
+                            mapsactivity.putExtra("team", "1")
+                            mapsactivity.putExtra("id", id)
+                            mapsactivity.putExtra("familyName", familyName)
+                            mapsactivity.putExtra("displayName", displayName)
+                            mapsactivity.putExtra("email", email)
+                            mapsactivity.putExtra("urlPhoto", urlPhoto.toString())
                             startActivity(mapsactivity)
                         }
                     }
@@ -100,7 +105,12 @@ class SelectTeamActivity : AppCompatActivity() {
                         is Result.Success -> {
                             //Padentro
                             val mapsactivity = Intent(this, MapsActivity::class.java)
-                            mapsactivity.putExtra("team", "technique")
+                            mapsactivity.putExtra("team", "2")
+                            mapsactivity.putExtra("id", id)
+                            mapsactivity.putExtra("familyName", familyName)
+                            mapsactivity.putExtra("displayName", displayName)
+                            mapsactivity.putExtra("email", email)
+                            mapsactivity.putExtra("urlPhoto", urlPhoto.toString())
                             startActivity(mapsactivity)
                         }
                     }
@@ -129,7 +139,12 @@ class SelectTeamActivity : AppCompatActivity() {
                         is Result.Success -> {
                             //Padentro
                             val mapsactivity = Intent(this, MapsActivity::class.java)
-                            mapsactivity.putExtra("team", "technique")
+                            mapsactivity.putExtra("team", "3")
+                            mapsactivity.putExtra("id", id)
+                            mapsactivity.putExtra("familyName", familyName)
+                            mapsactivity.putExtra("displayName", displayName)
+                            mapsactivity.putExtra("email", email)
+                            mapsactivity.putExtra("urlPhoto", urlPhoto.toString())
                             startActivity(mapsactivity)
                         }
                     }

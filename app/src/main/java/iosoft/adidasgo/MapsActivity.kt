@@ -22,11 +22,19 @@ import android.support.v4.app.ActivityCompat
 import android.support.v4.app.ActivityCompat.requestPermissions
 import android.view.View
 import android.widget.Toast
+import com.bumptech.glide.Glide
+import com.github.kittinunf.fuel.android.extension.responseJson
+import com.github.kittinunf.fuel.httpGet
+import com.github.kittinunf.fuel.httpPost
+import com.github.kittinunf.result.Result
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.model.*
 import com.google.android.gms.tasks.Task
 import kotlinx.android.synthetic.main.fragment_score.*
+import org.json.JSONArray
+import org.json.JSONObject
+import java.net.URI
 
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback, ScoreFragment.OnFragmentInteractionListener {
@@ -51,6 +59,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, ScoreFragment.OnFr
     private var stopTime : Long = 0
 
     private var userTeam : String? = null
+    private var userName : String? = null
+    private var userPhoto : String? = null
 
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
@@ -65,7 +75,17 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, ScoreFragment.OnFr
                 .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
-        userTeam = savedInstanceState?.getString("team")
+        userTeam = intent.getStringExtra("team")
+        userName = intent.getStringExtra("displayName")
+        userPhoto = intent.getStringExtra("urlPhoto")
+
+        when (userTeam) {
+            "1" -> userTeamItem.setText("Team Technique")
+            "2" -> userTeamItem.setText("Team Control")
+            "3" -> userTeamItem.setText("Team Power")
+        }
+        userNameItem.setText(userName)
+        Glide.with(this).load(userPhoto).into(userPhotoItem)
 
 //        personRecommendationButton.setOnClickListener({
 //            val personRecommendationActivity = Intent(this, PersonRecommendationActivity::class.java)
@@ -102,24 +122,48 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, ScoreFragment.OnFr
                 super.onLocationResult(p0)
 
                 mLastKnownLocation = p0.lastLocation
-                Toast.makeText(applicationContext, "Estamos", Toast.LENGTH_SHORT).show()//                placeMarkerOnMap(LatLng(lastLocation.latitude, lastLocation.longitude))
-                Toast.makeText(baseContext, "Estamos", Toast.LENGTH_SHORT).show()//                placeMarkerOnMap(LatLng(lastLocation.latitude, lastLocation.longitude))
 
                 if (routing) {
+                    Log.d("Tag", "En ruta")
                     listaPuntos.add(LatLng(mLastKnownLocation.latitude, mLastKnownLocation.longitude))
                     drawRouteOnMap()
                 }
 
                 if (finished) {
-                    // TODO: Aqui enviamos la mierda
-                    var timeTotal : Long = stopTime - startTime / 1000
+                    Log.d("Tag", "Finished")
+
+                    finished = false
+                    Toast.makeText(baseContext, "Has terminado la ruta!",Toast.LENGTH_LONG)
+                    Toast.makeText(applicationContext, "Has terminado la ruta!",Toast.LENGTH_LONG)
+                    var timeTotal : Long = (stopTime - startTime) / 1000
                     var distancia : Double = calculeTotalDistance()
 
+                    // idUser: id google, points: array de lats y longs, distance: distancia, time: tiempo
+                    var jsonArray : JSONArray = JSONArray()
+                    for (a in listaPuntos) {
+                        var j : JSONObject = JSONObject()
+                        j.put("lat", a.latitude)
+                        j.put("lng",a.longitude)
+                        jsonArray.put(j)
+                    }
 
-                    // Limpiamos los puntos una vez enviados los datos
-                    listaPuntos.clear()
+                    Log.d("JSON", jsonArray.toString())
+                    var names : JSONArray = JSONArray()
+                    names.put("point")
+
+                    var json : JSONObject = JSONObject()
+                    json.put("idUser", intent.getStringExtra("id"))
+                    json.put("points", jsonArray.toJSONObject(names))
+                    json.put("distance", distancia)
+                    json.put("time", timeTotal)
+
+                    ("http://" + ApiHandler.IP + ":" + ApiHandler.Port + "/postRoute").
+                            httpPost().body(json.toString()).responseString { request, response, result ->
+                        Log.d("REQUEST", request.toString())
+                        // Limpiamos los puntos una vez enviados los datos
+                        listaPuntos.clear()
+                    }
                 }
-
             }
         }
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
@@ -136,14 +180,14 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, ScoreFragment.OnFr
         startActivity(productRecommendationActivity)
     }
     private fun calculeTotalDistance(): Double {
-        if (listaPuntos.size != 0) {
+        if (listaPuntos.size > 1 ) {
             var totalDistancia : Double = 0.0
             var lastLatitude : Double = listaPuntos[0].latitude
             var lastLongitude : Double = listaPuntos[0].longitude
             var actualLatitude : Double
             var actualLongitude : Double
 
-            for (i in 1.. listaPuntos.size) {
+            for (i in 1.. listaPuntos.size-1) {
                 actualLatitude = listaPuntos[i].latitude
                 actualLongitude = listaPuntos[i].longitude
                 val theta = lastLongitude - actualLongitude
