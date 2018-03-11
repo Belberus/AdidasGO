@@ -7,21 +7,22 @@ import android.view.View
 import android.content.Intent
 import android.util.Log
 import android.util.Log.d
-import android.widget.Toast
+import com.github.kittinunf.fuel.android.core.Json
+import com.github.kittinunf.fuel.android.extension.responseJson
 import com.github.kittinunf.fuel.core.FuelError
 import com.github.kittinunf.fuel.core.Request
 import com.github.kittinunf.fuel.core.Response
 import com.github.kittinunf.fuel.httpGet
 import com.github.kittinunf.result.Result
-import com.github.kittinunf.result.getAs
 import com.google.android.gms.auth.api.Auth
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.auth.api.signin.GoogleSignInResult
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
+import iosoft.adidasgo.R.drawable.team
 
 import kotlinx.android.synthetic.main.activity_login.*
+import org.json.JSONObject
 
 /**
  * A login screen that offers login via email/password.
@@ -29,7 +30,8 @@ import kotlinx.android.synthetic.main.activity_login.*
 class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedListener {
 
     private val RC_SIGN_IN = 9001;
-    private var mGoogleApiClient: GoogleApiClient? = null;
+    private var mGoogleApiClient: GoogleApiClient? = null
+    private var teamSelected : String = "0"
 
     override fun onConnectionFailed(connectionResult: ConnectionResult) {
         d("bett", "onConnectionFailed");
@@ -97,9 +99,8 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
         if (result?.isSuccess!!) {
             signInAccount = result
             var id = result.signInAccount!!.id
-            //var resp : Response = ApiHandler.isRegistered(id.toString())
             ("http://" + ApiHandler.IP + ":" + ApiHandler.Port + "/isRegistered/" + id).httpGet()
-                    .responseString { request, response, result ->
+                    .responseJson() { request, response, result ->
                         callbackResponse(request, response, result)
             }
 
@@ -113,17 +114,16 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
        // TODO: Enviar las cosas que necesitemos
     }
 
-    private fun callbackResponse(request: Request, response: Response, result: Result<String, FuelError>) {
+    private fun callbackResponse(request: Request, response: Response, result: Result<Json, FuelError>) {
         //do something with response
         var zero : Long = 0
-        d("RESULTio", result.toString())
         when (result) {
             is Result.Failure -> {
-                d("FAILio", response.toString())
                 updateUI(false)
              }
             is Result.Success -> {
-                d("RESULLLLLLLT", response.toString())
+                var j : JSONObject = result.value.array().get(0) as JSONObject
+                teamSelected = j.getString("team")
                 updateUI(true)
             }
         }
@@ -133,6 +133,12 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
         if(isLogin) {
             // TODO: Peticion para registrar o si ya esta con la sesion iniciada habra que cargar su perfil
             val mapsactivity = Intent(this, MapsActivity::class.java)
+            mapsactivity.putExtra("id", signInAccount.signInAccount?.id)
+            mapsactivity.putExtra("familyName", signInAccount.signInAccount?.familyName)
+            mapsactivity.putExtra("displayName", signInAccount.signInAccount?.displayName)
+            mapsactivity.putExtra("team", teamSelected)
+            mapsactivity.putExtra("email", signInAccount.signInAccount?.email)
+            mapsactivity.putExtra("urlPhoto", signInAccount.signInAccount?.photoUrl.toString())
             startActivity(mapsactivity)
         } else {
             val selectTeamActivity = Intent(this, SelectTeamActivity::class.java)
