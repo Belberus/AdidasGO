@@ -48,9 +48,7 @@
                     android:cropToPadding="false"
                     android:scaleX="0.3"
                     android:scaleY="0.3"
-                    android:src="@drawable/technique"
-                    android:tint="@android:color/white"
-                    android:tintMode="add" />
+                    android:src="@drawable/technique"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -74,8 +72,6 @@
                     android:scaleX="0.3"
                     android:scaleY="0.3"
                     android:layout_weight="2"
-                    android:tint="@android:color/white"
-                    android:tintMode="add"
                     android:adjustViewBounds="true"
                     android:src="@drawable/control" />
                 <TextView
@@ -100,8 +96,6 @@
                     android:scaleX="0.5"
                     android:scaleY="0.5"
                     android:layout_weight="2"
-                    android:tint="@android:color/white"
-                    android:tintMode="add"
                     android:adjustViewBounds="true"
                     android:src="@drawable/power" />
                 <TextView
@@ -123,7 +117,7 @@
             android:layout_margin="@dimen/activity_horizontal_margin"
             android:textColor="@android:color/background_light"
             android:layout_weight="1"
-            android:text="Join one of our teams to compete for them and earn incredible rewards."/>
+            android:text="Join one of our teams to compete for them and earn incredible rewards. Swipe left to start."/>
 
 
     </LinearLayout>

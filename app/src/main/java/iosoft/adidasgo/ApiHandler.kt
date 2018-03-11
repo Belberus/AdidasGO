@@ -1,28 +1,33 @@
 package iosoft.adidasgo
 
 import android.util.Log
-import android.widget.Toast
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.uiThread
+import com.github.kittinunf.fuel.Fuel
+import com.github.kittinunf.fuel.core.FuelError
+import com.github.kittinunf.fuel.core.Request
+import com.github.kittinunf.fuel.core.Response
+import com.github.kittinunf.fuel.httpGet
+import com.github.kittinunf.fuel.httpPost
+import com.github.kittinunf.result.Result
+import java.io.BufferedReader
+import java.io.InputStreamReader
+import java.net.HttpURLConnection
 import java.net.URL
 
-/**
- * Created by belbus on 10/03/18.
- */
-class APiHandler {
+class ApiHandler {
     companion object {
 
-        private var IP : String = "10.3.11.96"
-        private var Port : String = "8888"
+        var IP : String = "10.1.57.88"
+        var Port : String = "8888"
 
-        fun isRegistered(id : String) {
-           // val result = URL("http://" + IP + ":" + Port + "/isRegistered/" + id).readText()
-            doAsync{
-                val result = URL("http://" + IP + ":" + Port + "/isRegistered/" + id).readText()
-
-                Log.d("Result", result.toString())
-                println("POLLAMEN " + result.toString())
-            }
+        fun isRegistered(id : String): Response {
+            val (request, response, result) = ("http://" + IP + ":" + Port + "/isRegistered/" + id).httpGet().responseString()
+            return response
         }
+
+        fun signIn(name : String, email : String, lastName : String, idGoogle : String, token: String, team : String, urlPhoto : String): Response {
+            val (request, response, result) = ("http://" + IP + ":" + Port + "/signIn").httpPost().body("{ \"name\" : \"" + name + "\", \"email\" : \"" + email + "\", \"lastName\" : \"" + lastName + "\", \"idGoogle\" : \"" + idGoogle + "\", \"token\" : \"" + token + "\", \"team\" : \"" + team + "\", \"urlPhoto\" : \"" + urlPhoto + "\"}").responseString()
+            return response
+        }
+
     }
 }
